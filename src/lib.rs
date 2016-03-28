@@ -90,14 +90,14 @@ pub fn get_access_token(consumer: &Token,
 
 /// function to update the status
 /// This function takes as arguments the consumer key, the access key, and the status (obviously)
-pub fn update_status(consumer: &Token, access: &Token, status: &str) -> Result<Vec<u8>, Error> {
+pub fn update_status(consumer: &Token, access: &Token, status: &str) -> Result<Vec<String>, Error> {
     let mut param = HashMap::new();
     let _ = param.insert("status".into(), status.into());
-    let t = try!(oauth::post(api_twitter_soft::UPDATE_STATUS,
+    let bytes = try!(oauth::post(api_twitter_soft::UPDATE_STATUS,
                              consumer,
                              Some(access),
                              Some(&param)));
-    Ok(t)
+    Ok(String::from_utf8(bytes).unwrap())
 }
 
 pub fn get_last_tweets(consumer: &Token, access: &Token) -> Result<Vec<Tweet>, Error> {
