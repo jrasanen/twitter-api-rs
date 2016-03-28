@@ -97,7 +97,7 @@ pub fn update_status(consumer: &Token, access: &Token, status: &str) -> Result<S
                              consumer,
                              Some(access),
                              Some(&param)));
-    Ok(try!(String::from_utf8(bytes).unwrap()))
+    Ok(bytes)
 }
 
 pub fn get_last_tweets(consumer: &Token, access: &Token) -> Result<Vec<Tweet>, Error> {
